@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8;
+  }
+
+  .content-header {
+    @apply bg-white p-6 rounded-3xl shadow-sm border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4;
+  }
+
+  .content-card {
+    @apply bg-white p-6 rounded-3xl shadow-sm border border-slate-200;
+  }
+
+  .page-title {
+    @apply text-2xl font-extrabold text-slate-900;
+  }
+
+  .page-description {
+    @apply text-xs text-slate-500 mt-1;
+  }
+
+  .primary-button {
+    @apply px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs shadow-md transition-all flex items-center space-x-2;
+  }
+
+  .form-input,
+  .form-select {
+    @apply w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500;
+  }
+
+  .form-label {
+    @apply block text-xs font-bold uppercase text-slate-600 mb-1.5;
+  }
+
+  .filter-bar {
+    @apply bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row items-center gap-4;
+  }
+
+  .data-table-container {
+    @apply bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden;
+  }
+
+  .empty-state {
+    @apply p-12 text-center text-slate-400;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs;
+  }
+
+  .modal-card {
+    @apply bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100;
+  }
+
+  .auth-page {
+    @apply min-h-[85vh] flex items-center justify-center p-4;
+  }
+
+  .auth-card {
+    @apply max-w-md w-full bg-white rounded-3xl p-8 shadow-xl border border-slate-100;
+  }
+
+  .auth-error {
+    @apply mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-red-600;
+  }
+
+  .full-width-button {
+    @apply w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center space-x-2;
+  }
+
+  .dashboard-page,
+  .analytics-page,
+  .notes-page {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8;
+  }
+
+  .dashboard-summary,
+  .analytics-summary {
+    @apply grid grid-cols-1 sm:grid-cols-3 gap-6;
+  }
+
+  .notes-layout {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
+  }
+
+  .schedule-page {
+    @apply max-w-5xl mx-auto px-4 py-8 space-y-8;
+  }
+
+  .app-shell {
+    @apply min-h-screen bg-slate-50 text-slate-900 flex flex-col;
+  }
+
+  .client-portal-page {
+    @apply max-w-6xl mx-auto px-4 py-8 space-y-8;
+  }
+
+  .booking-page {
+    @apply min-h-screen pb-20;
+  }
+
+  .booking-content {
+    @apply max-w-5xl mx-auto px-4 mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8;
+  }
+
+  .chat-window {
+    @apply fixed bottom-6 right-6 z-50 w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden;
+  }
+
+  .public-navbar {
+    @apply sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200;
+  }
+
+  .therapist-navbar {
+    @apply sticky top-0 z-40 bg-white border-b border-slate-200;
+  }
+
+  .navbar-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between;
+  }
+
+  .brand-link {
+    @apply flex items-center space-x-2;
+  }
+
+  .navbar-actions {
+    @apply flex items-center space-x-3;
+  }
+
+  .main-navigation {
+    @apply hidden md:flex items-center space-x-1;
+  }
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

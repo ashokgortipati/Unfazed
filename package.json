@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "seed": "npm --prefix unfazed-backend run seed",
+    "start:backend": "npm --prefix unfazed-backend start",
+    "dev:backend": "npm --prefix unfazed-backend run dev",
+    "dev:frontend": "npm --prefix unfazed-frontend run dev",
+    "build:frontend": "npm --prefix unfazed-frontend run build"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3"
+  }
+}
