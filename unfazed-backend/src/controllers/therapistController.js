@@ -1,12 +1,39 @@
 const Therapist = require("../models/Therapist");
 const Package = require("../models/Package");
-const generateSlug = require("../utils/generateSlug");
+const Availability = require("../models/Availability");
+const bcrypt = require("bcryptjs");
 
 // GET PUBLIC BRANDED PROFILE BY SLUG
 const getPublicProfileBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
-    const therapist = await Therapist.findOne({ slug, is_active: true }).select("-password");
+    let therapist = await Therapist.findOne({ slug, is_active: true }).select("-password");
+
+    // Auto-seed default dr-sharma profile if querying on a fresh database
+    if (!therapist && slug.toLowerCase() === "dr-sharma") {
+      const hashedPassword = await bcrypt.hash("Password123!", 10);
+      therapist = await Therapist.create({
+        name: "Dr. Ananya Sharma",
+        email: "dr.sharma@unfazed.in",
+        password: hashedPassword,
+        slug: "dr-sharma",
+        title: "Senior Clinical Psychologist (M.Phil, Ph.D)",
+        bio: "Empathetic, evidence-based therapy specializing in Cognitive Behavioral Therapy (CBT), Mindfulness, and Relationship Counseling.",
+        specializations: ["Cognitive Behavioral Therapy (CBT)", "Anxiety & Panic", "Depression"],
+        subscription_tier: "pro",
+      });
+
+      await Availability.create({
+        therapist_id: therapist._id,
+        weekly_schedule: [
+          { dayOfWeek: 1, dayName: "Monday", isEnabled: true, slots: [{ startTime: "10:00", endTime: "18:00" }] },
+          { dayOfWeek: 2, dayName: "Tuesday", isEnabled: true, slots: [{ startTime: "10:00", endTime: "18:00" }] },
+          { dayOfWeek: 3, dayName: "Wednesday", isEnabled: true, slots: [{ startTime: "10:00", endTime: "18:00" }] },
+          { dayOfWeek: 4, dayName: "Thursday", isEnabled: true, slots: [{ startTime: "10:00", endTime: "18:00" }] },
+          { dayOfWeek: 5, dayName: "Friday", isEnabled: true, slots: [{ startTime: "10:00", endTime: "18:00" }] },
+        ],
+      });
+    }
 
     if (!therapist) {
       return res.status(404).json({

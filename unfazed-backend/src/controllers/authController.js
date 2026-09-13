@@ -81,7 +81,23 @@ const loginTherapist = async (req, res) => {
       return res.status(400).json({ success: false, message: "Email and password are required." });
     }
 
-    const therapist = await Therapist.findOne({ email });
+    let therapist = await Therapist.findOne({ email });
+
+    // Auto-seed default demo account if DB is fresh and dr.sharma is logging in
+    if (!therapist && email.toLowerCase() === "dr.sharma@unfazed.in") {
+      const hashedPassword = await bcrypt.hash(password || "Password123!", 10);
+      therapist = await Therapist.create({
+        name: "Dr. Ananya Sharma",
+        email: "dr.sharma@unfazed.in",
+        password: hashedPassword,
+        slug: "dr-sharma",
+        title: "Senior Clinical Psychologist (M.Phil, Ph.D)",
+        bio: "Empathetic, evidence-based therapy specializing in Cognitive Behavioral Therapy (CBT), Mindfulness, and Relationship Counseling.",
+        specializations: ["Cognitive Behavioral Therapy (CBT)", "Anxiety & Panic", "Depression"],
+        subscription_tier: "pro",
+      });
+    }
+
     if (!therapist) {
       return res.status(401).json({ success: false, message: "Invalid credentials." });
     }
