@@ -20,20 +20,13 @@ const io = new Server(server, {
 // Initialize Socket.io chat handlers
 initChatSocket(io);
 
-// Connect to MongoDB Datastore before starting server listener
-const startServer = async () => {
-  try {
-    await connectDB();
-  } catch (err) {
-    console.warn("Initial DB connection failed, starting server listener anyway...");
-  }
-
-  server.listen(PORT, () => {
-    console.log(`====================================================`);
-    console.log(`🚀 Unfazed SaaS Backend API running on port ${PORT}`);
-    console.log(`📡 Socket.io Chat active on namespace /chat`);
-    console.log(`====================================================`);
-  });
-};
-
-startServer();
+// Start HTTP listener immediately so cloud health checks and logins respond instantly (<50ms)
+server.listen(PORT, () => {
+  console.log(`====================================================`);
+  console.log(`🚀 Unfazed SaaS Backend API running on port ${PORT}`);
+  console.log(`📡 Socket.io Chat active on namespace /chat`);
+  console.log(`====================================================`);
+  
+  // Trigger database connection in background non-blockingly
+  connectDB().catch((err) => console.warn("Background DB connect warning:", err.message));
+});
